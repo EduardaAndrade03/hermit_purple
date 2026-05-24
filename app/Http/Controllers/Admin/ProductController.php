@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\Product;
 
 class ProductController extends Controller
 {
@@ -12,7 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('hermit_purple.admin.products.index');
+        $products = Product::all();
+        return view('hermit_purple.admin.products.index', compact('products'));
     }
 
     /**
@@ -20,7 +22,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('hermit_purple.admin.products.create');
     }
 
     /**
@@ -28,7 +30,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dados = $request->all();
+
+        if ($request->stock_quantity === null || $request->stock_quantity === "" ){
+            $dados['stock_quantity'] = 1;
+            $dados['status'] = 1;
+        }else if ($request->stock_quantity === 0 || $request->stock_quantity === "0" ){
+            $dados['stock_quantity'] = 0;
+            $dados['status'] = 0;
+        }else if ($request->stock_quantity >= 1){
+            $dados['status'] = 1;
+        }
+
+        Product::create($dados);
+
+        return redirect()->route('admin.products.index');
     }
 
     /**

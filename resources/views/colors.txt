@@ -9,3 +9,10 @@
 #4F438B
 #8865A9
 
+@extends('hermit_purple.layouts.admin')
+
+@section('title', 'Produtos')
+
+@section('content')
+
+@endsection

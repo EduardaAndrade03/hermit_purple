@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('category');
             $table->text('description')->nullable();
             $table->decimal('price', 8, 2);
-            $table->unsignedInteger('stock_quantity'); //int apenas positivo
+            $table->unsignedInteger('stock_quantity')->default(1); //int apenas positivo
             $table->string('image')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
