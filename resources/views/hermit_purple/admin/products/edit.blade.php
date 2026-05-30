@@ -1,0 +1,36 @@
+@extends('hermit_purple.layouts.admin')
+
+@section('title', 'Produtos')
+
+@section('content')
+
+    <h2 class="text-2xl font-semibold text-[#8865A9] mb-6">Add Produto</h2>
+
+    <form method="POST" autocomplete="off" action="{{ route('admin.products.update', $product->id) }}" class="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-6 max-w-xl space-y-4">
+        @csrf
+
+        <label for="name" class="block text-sm text-gray-300">Nome</label>
+        <input value="{{ $product->name }}" required type="text" name="name" id="name" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
+
+        <label for="category" class="block text-sm text-gray-300">Categoria</label>
+        <select required name="category" id="category" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
+            <option value="" selected >Selecione uma categoria...</option>
+            <option value="Flor" {{ $product->category == 'Flor' ? 'selected' : '' }}>Flor</option>
+            <option value="Buquê" {{ $product->category == 'Buquê' ? 'selected' : '' }}>Buquê</option>
+            <option value="Planta" {{ $product->category == 'Planta' ? 'selected' : '' }}>Planta</option>
+            <option value="Acessório" {{ $product->category == 'Acessório' ? 'selected' : '' }}>Acessório</option>
+        </select>
+
+        <label for="description" class="block text-sm text-gray-300">Descrição</label>
+        <textarea name="description" id="description" rows="3" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">{{ $product->description }}"</textarea>
+
+        <label for="price" class="block text-sm text-gray-300">Preço</label>
+        <input value="{{ $product->price }}" required type="number" name="price" id="price" step="0.01" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
+
+        <label for="stock_quantity" class="block text-sm text-gray-300">Quant. em Estoque</label>
+        <input value="{{ $product->stock_quantity }}" type="number" name="stock_quantity" id="stock_quantity" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
+
+        <input type="submit" value="Enviar" class="bg-[#4F438B] hover:bg-[#8865A9] px-6 py-2 rounded-lg text-white cursor-pointer transition">
+    </form>
+
+@endsection

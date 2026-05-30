@@ -16,6 +16,7 @@
             <th class="px-6 py-4">Preço</th>
             <th class="px-6 py-4">Quant. em Estoque</th>
             <th class="px-6 py-4">Status</th>
+            <th class="px-6 py-4">Ações</th>
         </tr>
         @foreach ($products as $product)
             <tr class="border-t border-[#2A2A2A] hover:bg-[#181818] transition">
@@ -26,6 +27,7 @@
                 <td class="px-6 py-4">R${{ $product->price }}</td>
                 <td class="px-6 py-4">{{ $product->stock_quantity }}</td>
                 <td class="px-6 py-4">@if ($product->status) Disponível @else Esgotado @endif</td>
+                <td class="px-6 py-4"><a href="{{ route('admin.products.edit', $product->id) }}">Editar</a></td>
             </tr>
         @endforeach
     </table>

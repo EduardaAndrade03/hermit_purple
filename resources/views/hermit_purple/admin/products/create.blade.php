@@ -10,16 +10,22 @@
         @csrf
 
         <label for="name" class="block text-sm text-gray-300">Nome</label>
-        <input type="text" name="name" id="name" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
+        <input required type="text" name="name" id="name" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
 
         <label for="category" class="block text-sm text-gray-300">Categoria</label>
-        <input type="text" name="category" id="category" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
+        <select required name="category" id="category" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
+            <option value="" selected >Selecione uma categoria...</option>
+            <option value="Flor">Flor</option>
+            <option value="Buquê">Buquê</option>
+            <option value="Planta">Planta</option>
+            <option value="Acessório">Acessório</option>
+        </select>
 
         <label for="description" class="block text-sm text-gray-300">Descrição</label>
         <textarea name="description" id="description" rows="3" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white"></textarea>
 
         <label for="price" class="block text-sm text-gray-300">Preço</label>
-        <input type="number" name="price" id="price" step="0.01" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
+        <input required type="number" name="price" id="price" step="0.01" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">
 
         <label for="stock_quantity" class="block text-sm text-gray-300">Quant. em Estoque</label>
         <input type="number" name="stock_quantity" id="stock_quantity" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">

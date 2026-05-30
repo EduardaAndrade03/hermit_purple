@@ -60,7 +60,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+       $product = Product::findOrfail($id);
+       return view("hermit_purple.admin.products.edit", compact('product'));
     }
 
     /**
