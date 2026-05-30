@@ -8,6 +8,7 @@
 
     <form method="POST" autocomplete="off" action="{{ route('admin.products.update', $product->id) }}" class="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-6 max-w-xl space-y-4">
         @csrf
+        @method('PUT')
 
         <label for="name" class="block text-sm text-gray-300">Nome</label>
         <input value="{{ $product->name }}" required type="text" name="name" id="name" class="w-full bg-[#111111] border border-[#2A2A2A] rounded-lg px-4 py-2 text-white">

@@ -27,7 +27,13 @@
                 <td class="px-6 py-4">R${{ $product->price }}</td>
                 <td class="px-6 py-4">{{ $product->stock_quantity }}</td>
                 <td class="px-6 py-4">@if ($product->status) Disponível @else Esgotado @endif</td>
-                <td class="px-6 py-4"><a href="{{ route('admin.products.edit', $product->id) }}">Editar</a></td>
+                <td class="px-6 py-4"><a href="{{ route('admin.products.edit', $product->id) }}">Editar</a>
+                <form class="cursor-pointer" action="{{ route('admin.products.destroy', $product->id) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="submit" value="Deletar">
+                </form>
+                </td>
             </tr>
         @endforeach
     </table>

@@ -30,21 +30,32 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = $request->all();
 
-        if ($request->stock_quantity === null || $request->stock_quantity === "" ){
-            $dados['stock_quantity'] = 1;
-            $dados['status'] = 1;
-        }else if ($request->stock_quantity === 0 || $request->stock_quantity === "0" ){
-            $dados['stock_quantity'] = 0;
-            $dados['status'] = 0;
-        }else if ($request->stock_quantity >= 1){
-            $dados['status'] = 1;
-        }
+        // if ($request->stock_quantity === null || $request->stock_quantity === "" ){
+        //     $dados['stock_quantity'] = 1;
+        //     $dados['status'] = 1;
+        // }else if ($request->stock_quantity === 0 || $request->stock_quantity === "0" ){
+        //     $dados['stock_quantity'] = 0;
+        //     $dados['status'] = 0;
+        // }else if ($request->stock_quantity >= 1){
+        //     $dados['status'] = 1;
+        // }
+
+        $dados = $request->validate([
+        'name' => 'required|string|max:255',
+        'category' => 'required|in:Flor,Buquê,Planta,Acessório',
+        'description' => 'nullable|string|max:1000',
+        'price' => 'required|numeric|min:0',
+        'stock_quantity' => 'nullable|integer|min:0'
+        ]);
+
+        $dados['stock_quantity'] = $dados['stock_quantity'] ?? 1;
+        $dados['status'] = $dados['stock_quantity'] > 0 ? 1 : 0;
 
         Product::create($dados);
 
         return redirect()->route('admin.products.index');
+
     }
 
     /**
@@ -69,7 +80,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $dados = $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|in:Flor,Buquê,Planta,Acessório',
+            'description' => 'nullable|string|max:1000',
+            'price' => 'required|numeric|min:0',
+            'stock_quantity' => 'nullable|integer|min:0'
+            ]);
+
+            $dados['stock_quantity'] = $dados['stock_quantity'] ?? 1;
+            $dados['status'] = $dados['stock_quantity'] > 0 ? 1 : 0;
+
+        $product = Product::findOrfail($id);
+        $product->update($dados);
+
+        return redirect()->route('admin.products.index');
     }
 
     /**
@@ -77,6 +102,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrfail($id);
+        $product->delete();
+        return redirect()->route('admin.products.index');
     }
 }
